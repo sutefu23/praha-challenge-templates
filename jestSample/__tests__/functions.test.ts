@@ -13,7 +13,8 @@ import {
   sumOfArray as regacySumOfArray,
   asyncSumOfArray as regacyAsyncSumOfArray,
 } from "../functions.org";
-import { MockApiFecher, NameApiService } from "../nameApiService";
+import { MockUserFecher } from "../api/mock/MockUserFecher";
+import { NameApiService } from "../nameApiService";
 
 describe("sumOfArrayで配列の合計が返ってくるテスト", (): void => {
   test("1,2だと3が返る", (): void => {
@@ -85,14 +86,27 @@ describe("asyncSumOfArraySometimesZeroで配列の合計と時々0が返って�
   });
 });
 describe("getFirstNameThrowIfLongでFirstNameと規定値以上の時エラーが返ってくるテスト", (): void => {
+  const mockUser = {
+    id: 2,
+    uid: "",
+    name: "Tomohide Hirakawa",
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    first_name: "Tomohide",
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    last_name: "Hirakawa",
+  };
+  const testFecher = new MockUserFecher(mockUser);
+
   test("長さ制限20だと無事FirstNameが返ってくる", async (): Promise<void> => {
-    await expect(getFirstNameThrowIfLong(20)).resolves.toMatch(/^[A-Za-z]+$/);
+    await expect(getFirstNameThrowIfLong(20, testFecher)).resolves.toMatch(
+      /^[A-Za-z]+$/
+    );
   });
 
-  test("長さ制限1だと`first_name too long`エラーが返ってくる", async (): Promise<
+  test("長さ制限5だと制限に引っかかって`first_name too long`エラーが返ってくる", async (): Promise<
     void
   > => {
-    await expect(getFirstNameThrowIfLong(1)).rejects.toThrow(
+    await expect(getFirstNameThrowIfLong(5, testFecher)).rejects.toThrow(
       new Error("first_name too long")
     );
   });
@@ -108,7 +122,7 @@ describe("nameApiServiceのテスト", (): void => {
     // eslint-disable-next-line @typescript-eslint/camelcase
     last_name: "Hirakawa",
   };
-  const testFecher = new MockApiFecher(mockUser);
+  const testFecher = new MockUserFecher(mockUser);
   const service = new NameApiService(testFecher);
   test("UserdataのMock取得テスト", async (): Promise<void> => {
     await expect(service.getUserData()).resolves.toStrictEqual(mockUser);

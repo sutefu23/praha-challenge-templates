@@ -1,35 +1,5 @@
-import axios from "axios";
-
-export interface User {
-  id: number;
-  uid: string;
-  name: string;
-  first_name: string;
-  last_name: string;
-  //その他は省略
-}
-
-export interface APIFecherUserInterface {
-  get(): Promise<User>;
-}
-
-export class AxiosApiUserFetcher implements APIFecherUserInterface {
-  private URL = "https://random-data-api.com/api/name/random_name";
-  public async get(): Promise<User> {
-    const { data } = await axios.get<User>(this.URL);
-    return data;
-  }
-}
-
-export class MockApiFecher implements APIFecherUserInterface {
-  private mock: User;
-  public constructor(mockUser: User) {
-    this.mock = mockUser;
-  }
-  public async get(): Promise<User> {
-    return this.mock;
-  }
-}
+import { APIFecherUserInterface } from "./api/interface/APIFecherUserInterface";
+import { User } from "./api/type/user";
 // fixed
 // - インタフェースに依存させる
 // - APIのデータ取得とUserデータを理解してそれを返すサービスとにそれぞれ分ける

@@ -1,4 +1,5 @@
-import { AxiosApiUserFetcher, NameApiService } from "./nameApiService";
+import { APIFecherUserInterface } from "./api/interface/APIFecherUserInterface";
+import { NameApiService } from "./nameApiService";
 import { DatabaseMockInterface } from "./util";
 
 export const sumOfArray = (numbers: number[]): number => {
@@ -41,9 +42,9 @@ export const asyncSumOfArraySometimesZero = (
 // - interfaceに依存させて外部から注入する。
 // - API取得とUserデータを理解し操作するクラス、そしてfirstnameの長さをチェックする関数、とそれぞれの役割と責務を分けるべき
 export const getFirstNameThrowIfLong = async (
-  maxNameLength: number
+  maxNameLength: number,
+  fetcher: APIFecherUserInterface
 ): Promise<string> => {
-  const fetcher = new AxiosApiUserFetcher();
   const nameApiService = new NameApiService(fetcher);
   const firstName = await nameApiService.getFirstName();
 
