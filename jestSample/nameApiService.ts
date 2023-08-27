@@ -1,18 +1,22 @@
-import axios from "axios";
-
+import { APIFecherUserInterface } from "./api/interface/APIFecherUserInterface";
+import { User } from "./api/type/user";
+// fixed
+// - インタフェースに依存させる
+// - APIのデータ取得とUserデータを理解してそれを返すサービスとにそれぞれ分ける
+// - → それによりUserデータのテストも可能になり、オリジナル版のようにdata.first_name as stringなどとしてキャストしなくて良くなる
 export class NameApiService {
-  private MAX_LENGTH = 4;
-  public constructor() {}
+  private fetcher: APIFecherUserInterface;
+  public constructor(apiFecher: APIFecherUserInterface) {
+    this.fetcher = apiFecher;
+  }
+
+  public async getUserData(): Promise<User> {
+    return this.fetcher.get();
+  }
 
   public async getFirstName(): Promise<string> {
-    const { data } = await axios.get(
-      "https://random-data-api.com/api/name/random_name"
-    );
-    const firstName = data.first_name as string;
-
-    if (firstName.length > this.MAX_LENGTH) {
-      throw new Error("firstName is too long!");
-    }
+    const user = await this.getUserData();
+    const firstName = user.first_name;
 
     return firstName;
   }
