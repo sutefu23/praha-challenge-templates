@@ -1,0 +1,26 @@
+- [X] assignment4 unit test
+    - [X] termDisplay()
+        - [X] `displayFrom < today < displayTo`の場合、"<p>お知らせ:**</p>"が返ってくる
+        - [X] `displayFrom < displayTo < today`の場合、"<p>まだお知らせはありません</p>"が返ってくる
+        - [X] `displayTo < displayFrom < today`の場合、`Error("displayFromはdisplayToより未来にすることは出来ません。")`がthrowされる
+        - [X] `displayFrom == today == displayTo`の場合、"<p>お知らせ:**</p>"が返ってくる
+    - [X] saveUser()
+        - [X] nameの文字数が20文字より長い場合、`Error("ユーザー名が長すぎる")`がthrowされる
+        - [X] nameの文字数が20文字以下の場合
+            - [X] emailの文字数が100文字より長い場合、`Error("メールアドレスが長すぎる")`がthrowされる
+            - [X] emailの文字数が100文字以下の場合
+                - [X] passwordの文字数が5文字より短い場合、`Error("パスワードが短すぎる")`がthrowされる
+                - [X] passwordの文字数が5文字以上の場合
+                    - [X] emailが正規表現の`.+@.+\..+`にマッチしない場合、`Error("メールアドレスが不正")`がthrowされる
+                    - [X] emailが正規表現の`.+@.+\..+`にマッチする場合
+                        - [X] `Math.random()`の結果が0.1より小さい場合、`Error("保存に失敗しました")`がthrowされる
+                        - [X] `Math.random()`の結果が0.1以上の場合、console log"ユーザーを保存しました。名前:${name}, Email:${email}, Pass:${password}"が出力される
+    - [X] tubofuriBakuchi()
+        - [X] 関数をcallすると博打の準備を呼びかけるconsole logが表示される
+        - [X] userBetが'丁'の場合
+            - [X] サイコロの結果が丁の場合、console logで"あんさんの勝ちや"と表示される
+            - [X] サイコロの結果が半の場合、console logで"あんさんの負けや"と表示される
+        - [X] userBetが'半'の場合
+            - [X] サイコロの結果が丁の場合、console logで"わての勝ちや"と表示される
+            - [X] サイコロの結果が半の場合、console logで"わてのの負けや"と表示される
+        - [X] userBetが'丁'でも'半'でもない場合、Error("ナメとんかいワレ！")がthrowされる
