@@ -18,9 +18,6 @@ export function termDisplay(
   }
 
   const now = new Date();
-  console.log(now);
-  console.log(new Date("2023/1/1"));
-  console.log(new Date("2023/12/1"));
   if (displayFrom <= now && displayTo >= now) {
     return `<p>お知らせ:${noticeContent}</p>`;
   }
