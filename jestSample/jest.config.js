@@ -2,5 +2,5 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
   collectCoverage: true,
-  collectCoverageFrom: ["**/functions.ts", "**/nameApiService.ts"]
+  collectCoverageFrom: ["**/functions.ts", "**/nameApiService.ts", "**/assignment4.ts"]
 };
