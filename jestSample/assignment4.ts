@@ -1,6 +1,7 @@
 /**
- * クイズ１
- * 指定した表示期間お知らせを表示するHTMLを返す関数
+ * 回答
+ * すみません。console.logが残ってたのは自分のミスです汗
+ *
  * @export
  * @param {Date} displayFrom 表示開始日時
  * @param {Date} displayTo 表示終了日時
@@ -18,9 +19,6 @@ export function termDisplay(
   }
 
   const now = new Date();
-  console.log(now);
-  console.log(new Date("2023/1/1"));
-  console.log(new Date("2023/12/1"));
   if (displayFrom <= now && displayTo >= now) {
     return `<p>お知らせ:${noticeContent}</p>`;
   }
@@ -98,7 +96,7 @@ export function tubofuriBakuchi(userBet: string): void {
       break;
     case "半":
       if (result === "半") {
-        console.log("わてのの負けや");
+        console.log("わての負けや");
       } else {
         console.log("わての勝ちや");
       }
